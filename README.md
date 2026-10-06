@@ -1,159 +1,109 @@
-# React DummyJSON Starter Kit
+# React DummyJSON Learning Application
 
-A production-grade, modular frontend starter kit built with React 18, Vite, and React Router v6. This repository demonstrates core frontend architecture patterns including component composition, centralized context state management, asynchronous REST API integration, and vanilla CSS design systems.
+A clean, modular 3-page learning application built with React 18, Vite, and React Router v6 consuming public APIs from DummyJSON.
 
----
+## Description
 
-## Overview
-
-This project serves as an architectural reference and foundational template for React web applications. It integrates with public REST endpoints from DummyJSON to illustrate real-world patterns for authentication, data fetching, error handling, and component encapsulation.
-
----
-
-## Architectural Highlights
-
-### 1. Component Modularity and Composition
-- **Layout Wrapper (`Wrapper.jsx`)**: Implements layout containment utilizing the standard React `children` prop pattern.
-- **Hero Section (`HeroSection.jsx`)**: Configurable header banner accepting titles, subtitles, badges, and statistical metrics through explicit props.
-- **Product Card (`ProductCard.jsx`)**: Independent presentation component handling price calculations, badge logic, rating display, and upward event delegation (`onAddToCart`).
-- **Global Navigation and Footer (`Header.jsx`, `Footer.jsx`)**: Persistent layout components featuring dynamic authentication indicators and routing links.
-
-### 2. State and Authentication Management
-- **Authentication Context (`AuthContext.jsx`)**: Centralized state management provider for user authentication, session persistence using browser `localStorage`, and token lifecycle methods.
-- **Protected Routing Patterns**: Route guarding logic that reacts dynamically to user login and logout actions.
-
-### 3. Asynchronous Data Handling
-- **API Service Layer (`src/api/dummyJson.js`)**: Encapsulated HTTP client using native `fetch` with `async/await` syntax and error handling.
-- **Component Lifecycle Integration**: Data fetching managed via `useEffect` hooks paired with granular state tracking (`loading`, `error`, `data`).
-- **User Feedback**: Skeleton loading states and contextual fallback views to ensure a smooth, non-blocking user experience.
-
----
-
-## Application Pages and Routes
-
-| Route | Component | Description |
-| :--- | :--- | :--- |
-| `/` | `ProductsPage` | Catalogs products retrieved from the REST API. Includes live search, category filtering, and cart interaction handlers. |
-| `/login` | `LoginPage` | Handles user authentication via API POST requests, error messaging, and automated redirection upon success. |
-| `/profile` | `ProfilePage` | Displays authenticated user information alongside a directory view of users fetched from the API. |
-
----
-
-## Technology Stack
-
-- **Framework**: React 18.3.1
-- **Build Tool**: Vite 6.0.0
-- **Routing**: React Router DOM 6.28.0
-- **Icons**: Lucide React 0.460.0
-- **Styling**: Vanilla CSS (Modular CSS custom properties and responsive layout system)
-- **External API**: DummyJSON RESTful Services
-
----
-
-## Directory Structure
-
-```
-react-dummyjson-starter-kit/
-|-- index.html                 # HTML application entry point
-|-- package.json               # Project manifest, scripts, and dependencies
-|-- vite.config.js             # Vite configuration file
-`-- src/
-    |-- App.jsx                # Application root with route declarations
-    |-- main.jsx               # React DOM entry point
-    |-- api/
-    |   `-- dummyJson.js       # Asynchronous HTTP API functions
-    |-- components/
-    |   |-- common/
-    |   |   |-- Footer.jsx     # Global layout footer
-    |   |   |-- Header.jsx     # Top navigation bar with auth status
-    |   |   |-- HeroSection.jsx# Reusable hero banner component
-    |   |   `-- Wrapper.jsx    # Generic container wrapper
-    |   `-- products/
-    |       `-- ProductCard.jsx# Reusable product presentation card
-    |-- context/
-    |   `-- AuthContext.jsx    # React Context provider for authentication
-    |-- pages/
-    |   |-- LoginPage.jsx      # Authentication and login view
-    |   |-- ProductsPage.jsx   # Product listing and filter view
-    |   `-- ProfilePage.jsx    # User details and directory view
-    `-- styles/
-        `-- index.css          # Design system variables, utilities, and styles
-```
-
----
+This project is a modern, modular frontend web application designed as an architectural template for React developers. Built using React 18, Vite, and React Router v6, it demonstrates essential frontend engineering principles including component composition via the `children` prop pattern, explicit parent-to-child prop delegation, centralized global state management via `AuthContext`, and asynchronous REST API integration. The application features a 3-page workflow: an asynchronous Login view with token persistence in local state and storage, a real-time Products catalog displaying reusable `ProductCard` components with live search and category filtering, and an authenticated User Profile view.
 
 ## Getting Started
 
-### Prerequisites
-- Node.js (version 18.0.0 or higher recommended)
-- npm (version 9.0.0 or higher)
+### Dependencies
 
-### Installation
+* Operating System: Windows 10/11, macOS, or Linux
+* Runtime: Node.js (v18.0.0 or higher recommended, tested on v24.x)
+* Package Manager: npm (v9.0.0 or higher) or yarn / pnpm
+* Core Libraries:
+  * `react` (^18.3.1) - Core frontend UI library
+  * `react-dom` (^18.3.1) - React DOM rendering engine
+  * `react-router-dom` (^6.28.0) - Client-side declarative routing
+  * `lucide-react` (^0.460.0) - Modern UI iconography
+* Development Tooling:
+  * `vite` (^6.0.0) - Next-generation frontend build tool and dev server
+  * `@vitejs/plugin-react` (^4.3.4) - Fast Refresh and JSX transformation
 
-1. Navigate to the project directory:
-   ```bash
-   cd react_starter_kit
-   ```
+### Installing
 
-2. Install all required dependencies:
-   ```bash
-   npm install
-   ```
+* Clone or navigate to the project directory:
+  ```bash
+  cd "e:\Starter Kit\react_starter_kit"
+  ```
+* Install all required dependencies via npm:
+  ```bash
+  npm install
+  ```
+* Environment Configuration:
+  * If custom API base URLs are needed, create a `.env` file in the root directory:
+    ```env
+    VITE_DUMMYJSON_BASE_URL=https://dummyjson.com
+    ```
 
-### Development Server
+### Executing program
 
-Start the local development server:
-```bash
-npm run dev
-```
+* Running in Development Mode (Vite Dev Server):
+  ```bash
+  npm run dev
+  ```
+* Building for Production:
+  ```bash
+  npm run build
+  ```
+* Previewing Production Build locally:
+  ```bash
+  npm run preview
+  ```
+* Accessing the Application:
+  * Open your web browser and navigate to the local Vite URL (default):
+    ```text
+    http://localhost:5173
+    ```
+* Application Navigation & Views:
+  * `/` or `/login` — Login Portal calling `POST https://dummyjson.com/auth/login`
+  * `/products` — Products Catalog calling `GET https://dummyjson.com/products`
+  * `/profile` — User Profile view calling `GET https://dummyjson.com/users`
+* Testing Authentication with Demo Credentials:
+  * Predefined DummyJSON accounts can be used to log in:
+    * Username: `emilys`
+    * Password: `emilyspass`
+    * Alternative: `michaelw` / `michaelwpass`
 
-The application will be accessible at:
-```
-http://localhost:3000
-```
+## Help
 
-### Production Build
+* Port 5173 already in use:
+  * If port `5173` is occupied, Vite will automatically select the next available port (e.g., `5174`), or you can force a custom port in `package.json`:
+    ```bash
+    npm run dev -- --port 3000
+    ```
+* Node Version Compatibility:
+  * Verify your installed Node version using `node -v`. Ensure version is 18.0.0 or higher.
+* Network or CORS Errors during API calls:
+  * Ensure your machine has an active internet connection to communicate with `https://dummyjson.com`.
+* Authentication State reset:
+  * If the session is cleared upon hard refresh, check your browser's `localStorage` permissions.
 
-Compile the project assets for deployment:
-```bash
-npm run build
-```
+## Authors
 
-To preview the production bundle locally:
-```bash
-npm run preview
-```
+* Development Team
+* Project Contributor: [@Developer](https://github.com/)
 
----
+## Version History
 
-## API Endpoints Used
-
-| Method | Endpoint | Purpose |
-| :--- | :--- | :--- |
-| `POST` | `https://dummyjson.com/auth/login` | Authenticate user credentials and retrieve JWT token |
-| `GET` | `https://dummyjson.com/products` | Retrieve catalog products list |
-| `GET` | `https://dummyjson.com/products/categories` | Retrieve available product categories |
-| `GET` | `https://dummyjson.com/products/category/{category}` | Filter catalog products by specific category |
-| `GET` | `https://dummyjson.com/products/search?q={query}` | Search catalog by text query |
-| `GET` | `https://dummyjson.com/users` | Retrieve directory of users |
-| `GET` | `https://dummyjson.com/users/{id}` | Retrieve individual user profile details |
-
----
-
-## Test Credentials
-
-For testing authentication on the `/login` view, use the following pre-configured DummyJSON accounts:
-
-| Username | Password | User Name | Role |
-| :--- | :--- | :--- | :--- |
-| `emilys` | `emilyspass` | Emily Johnson | User |
-| `michaelw` | `michaelwpass` | Michael Williams | User |
-| `sophiab` | `sophiabpass` | Sophia Brown | User |
-
-*Note: The login view also includes one-click buttons to autofill these credentials during testing.*
-
----
+* 0.2
+  * Integrated `AuthContext` for centralized authentication state management
+  * Implemented reusable `Wrapper` component with `children` prop
+  * Added live search, category filtering, and responsive `ProductCard` grid
+  * Upgraded build pipeline to Vite 6 and React Router v6
+* 0.1
+  * Initial Release with baseline React structure and routing
 
 ## License
 
-This project is open-source and available under the MIT License.
+This project is licensed under the ISC License - see the LICENSE file for details.
+
+## Acknowledgments
+
+* [DummyJSON](https://dummyjson.com) - Public REST API for realistic mock data and authentication services
+* [Vite](https://vitejs.dev) - Fast and lean frontend tooling
+* [React Router](https://reactrouter.com) - Declarative routing for React web applications
+* [PurpleBooth / README-Template](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2) - Standard project documentation structure inspiration
+* [awesome-readme](https://github.com/matiassingers/awesome-readme) - Documentation best practices
